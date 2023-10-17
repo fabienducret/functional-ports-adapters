@@ -18,7 +18,7 @@ const parse = (from: RawTodo): Todo => {
 };
 
 export const httpTodoRepository = {
-  async fetchById(id: number): Promise<Either<Error, Todo>> {
+  async fetchById(id: string): Promise<Either<Error, Todo>> {
     const rawTodo = await fetchFrom<RawTodo>(`${baseUrl}/todos/${id}`);
 
     return rawTodo.map(parse);

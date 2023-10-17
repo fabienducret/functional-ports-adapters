@@ -1,14 +1,14 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert';
 import { inMemoryTodoRepository } from '../repositories/in-memory.repository.js';
-import { fetchTodosByIdsFactory } from './fetch-by-ids.js';
+import { fetchTodosByIdsUseCase } from './fetch-by-ids.usecase.js';
 
 test('fetch-by-ids', async (t) => {
-  const todosByIds = fetchTodosByIdsFactory(inMemoryTodoRepository);
+  const todosByIds = fetchTodosByIdsUseCase(inMemoryTodoRepository);
 
   await t.test('should return valid todos', async () => {
     // When
-    const todos = await todosByIds([1, 2]);
+    const todos = await todosByIds(['1', '2']);
 
     //Then
     assert.deepEqual(todos.extract(), [
@@ -29,7 +29,7 @@ test('fetch-by-ids', async (t) => {
 
   await t.test('should return error message for invalid resource', async () => {
     // When
-    const error = await todosByIds([1, 3, 4]);
+    const error = await todosByIds(['1', '3', '4']);
 
     //Then
     assert.deepEqual(error.extract(), {

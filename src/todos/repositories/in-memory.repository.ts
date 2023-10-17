@@ -18,8 +18,8 @@ const todos = [
 ];
 
 export const inMemoryTodoRepository = {
-  async fetchById(id: number): Promise<Either<Error, Todo>> {
-    const todo = todos.find((t) => t.id === id);
+  async fetchById(id: string): Promise<Either<Error, Todo>> {
+    const todo = todos.find((t) => t.id === Number(id));
 
     if (!todo) {
       return Left({ message: `error in fetching resource ${id}` });

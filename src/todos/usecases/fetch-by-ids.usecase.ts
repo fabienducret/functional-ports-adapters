@@ -3,7 +3,7 @@ import type { Error } from '../../models/error.js';
 import type { Todo } from '../../models/todo.js';
 
 interface TodoRepository {
-  fetchById(id: number): Promise<Either<Error, Todo>>;
+  fetchById(id: string): Promise<Either<Error, Todo>>;
 }
 
 const hasErrors = (todos: Either<Error, Todo>[]): boolean => {
@@ -18,13 +18,13 @@ const formatErrorMessage = (todos: Either<Error, Todo>[]) => {
   return `Error in fetch-by-id:\n${errors}`;
 };
 
-export const fetchTodosByIdsFactory = (repo: TodoRepository) => {
-  const fetch = async (ids: number[]) => {
+export const fetchTodosByIdsUseCase = (repo: TodoRepository) => {
+  const fetch = async (ids: string[]) => {
     const requests = ids.map(repo.fetchById);
     return Promise.all(requests);
   };
 
-  return async (ids: number[]): Promise<Either<Error, Todo[]>> => {
+  return async (ids: string[]): Promise<Either<Error, Todo[]>> => {
     const errOrTodos = await fetch(ids);
 
     if (hasErrors(errOrTodos)) {
