@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Error } from '../../models/error.js';
-import { Todo } from '../../models/todo.js';
 import { Either } from 'purify-ts';
+import type { Error } from '../../domain/models/error.js';
+import type { Todo } from '../../domain/models/todo.js';
 
 type Request = FastifyRequest<{
   Querystring: { ids?: string };

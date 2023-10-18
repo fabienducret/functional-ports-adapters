@@ -1,5 +1,5 @@
 import { Either, Left, Right } from 'purify-ts';
-import type { Error } from '../models/error.js';
+import type { Error } from '../todos/domain/models/error.js';
 
 export const fetchFrom = async <T>(url: string): Promise<Either<Error, T>> => {
   const response = await fetch(url);

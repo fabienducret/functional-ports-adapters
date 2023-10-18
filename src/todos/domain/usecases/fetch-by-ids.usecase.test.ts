@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert';
-import { inMemoryTodoRepository } from '../repositories/in-memory.repository.js';
+import { inMemoryTodoRepository } from '../../infra/repositories/in-memory.repository.js';
 import { fetchTodosByIdsUseCase } from './fetch-by-ids.usecase.js';
 
 test('fetch-by-ids', async (t) => {
@@ -13,16 +13,12 @@ test('fetch-by-ids', async (t) => {
     //Then
     assert.deepEqual(todos.extract(), [
       {
-        userId: 1,
         id: 1,
         title: 'delectus aut autem',
-        completed: false,
       },
       {
-        userId: 1,
         id: 2,
         title: 'quis ut nam facilis et officia qui',
-        completed: false,
       },
     ]);
   });

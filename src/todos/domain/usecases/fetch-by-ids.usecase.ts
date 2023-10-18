@@ -1,6 +1,6 @@
 import { Either, Left, Right } from 'purify-ts/Either';
-import type { Error } from '../../models/error.js';
-import type { Todo } from '../../models/todo.js';
+import type { Error } from '../models/error.js';
+import type { Todo } from '../models/todo.js';
 
 interface TodoRepository {
   fetchById(id: string): Promise<Either<Error, Todo>>;
