@@ -1,0 +1,63 @@
+{
+  "data": {
+    "pairs": [
+      {
+        "request": {
+          "path": [
+            {
+              "matcher": "exact",
+              "value": "/todos/1"
+            }
+          ],
+          "method": [
+            {
+              "matcher": "exact",
+              "value": "GET"
+            }
+          ]
+        },
+        "response": {
+          "status": 200,
+          "body": "{\"userId\": 1,\"id\": 1,\"title\": \"delectus aut autem\",\"completed\": false}",
+          "encodedBody": false,
+          "headers": {
+            "Content-Type": ["application/json; charset=utf-8"]
+          },
+          "templated": false
+        }
+      },
+      {
+        "request": {
+          "path": [
+            {
+              "matcher": "exact",
+              "value": "/todos/2"
+            }
+          ],
+          "method": [
+            {
+              "matcher": "exact",
+              "value": "GET"
+            }
+          ]
+        },
+        "response": {
+          "status": 200,
+          "body": "{\"userId\": 1,\"id\": 2,\"title\": \"quis ut nam facilis et officia qui\",\"completed\": false}",
+          "encodedBody": false,
+          "headers": {},
+          "templated": false
+        }
+      }
+    ],
+    "globalActions": {
+      "delays": [],
+      "delaysLogNormal": []
+    }
+  },
+  "meta": {
+    "schemaVersion": "v5",
+    "hoverflyVersion": "v1.0.0",
+    "timeExported": "2019-05-30T22:14:24+01:00"
+  }
+}
