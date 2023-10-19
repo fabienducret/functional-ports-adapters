@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  hoverfly:
+  fake-api:
     image: spectolabs/hoverfly
     ports:
       - '8888:8888'
