@@ -6,10 +6,11 @@ import type { StartedDockerComposeEnvironment } from 'testcontainers';
 
 test('todos - fetch by ids - integration', async (t) => {
   const todosApiUrl = 'http://hoverfly:8500';
+  const serverUrl = 'http://localhost:3000';
   let environment: StartedDockerComposeEnvironment;
 
   before(async () => {
-    environment = await startDockerComposeWith({ TODOS_API: todosApiUrl });
+    environment = await startDockerComposeWith({ TODOS_API_URL: todosApiUrl });
     await putSimulation('todos/api/success.json');
   });
 
@@ -19,7 +20,7 @@ test('todos - fetch by ids - integration', async (t) => {
 
   await t.test('should return valid todos', async () => {
     // When
-    const response = await fetch('http://localhost:3000/todos?ids=1,2');
+    const response = await fetch(`${serverUrl}/todos?ids=1,2`);
 
     // Then
     assert.equal(response.status, 200);
@@ -39,7 +40,7 @@ test('todos - fetch by ids - integration', async (t) => {
 
   await t.test('should return error for invalid resource', async () => {
     // When
-    const response = await fetch('http://localhost:3000/todos?ids=1,2,3');
+    const response = await fetch(`${serverUrl}/todos?ids=1,2,3`);
 
     // Then
     assert.equal(response.status, 500);

@@ -15,11 +15,12 @@ const parse = (from: RawTodo): Todo => {
   };
 };
 
-export const httpTodoRepository = {
-  async fetchById(id: string): Promise<Either<Error, Todo>> {
-    const baseUrl = process.env.TODOS_API;
-    const rawTodo = await fetchFrom<RawTodo>(`${baseUrl}/todos/${id}`);
+export const httpTodoRepository = (url?: string) => {
+  return {
+    async fetchById(id: string): Promise<Either<Error, Todo>> {
+      const rawTodo = await fetchFrom<RawTodo>(`${url}/todos/${id}`);
 
-    return rawTodo.map(parse);
-  },
+      return rawTodo.map(parse);
+    },
+  };
 };

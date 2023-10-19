@@ -9,4 +9,4 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=3000
-      - TODOS_API=${TODOS_API}
+      - TODOS_API_URL=${TODOS_API_URL}
