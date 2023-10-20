@@ -1,26 +1,33 @@
 import { Either } from 'purify-ts';
-import { fetchFrom } from '../../../lib/fetch.js';
 import type { Todo } from '../../domain/models/todo.js';
 import type { Error } from '../../domain/models/error.js';
+
+interface Fetcher {
+  <T>(url: string): Promise<Either<string, T>>;
+}
 
 type RawTodo = {
   id: number;
   title: string;
 };
 
-const parse = (from: RawTodo): Todo => {
+const parseError = (from: string): Error => {
+  return { message: from };
+};
+
+const parseTodo = (from: RawTodo): Todo => {
   return {
     id: from.id,
     title: from.title,
   };
 };
 
-export const httpTodoRepository = (url?: string) => {
+export const httpTodoRepository = (fetcher: Fetcher, url?: string) => {
   return {
     async fetchById(id: string): Promise<Either<Error, Todo>> {
-      const rawTodo = await fetchFrom<RawTodo>(`${url}/todos/${id}`);
+      const rawTodo = await fetcher<RawTodo>(`${url}/todos/${id}`);
 
-      return rawTodo.map(parse);
+      return rawTodo.mapLeft(parseError).map(parseTodo);
     },
   };
 };
