@@ -7,9 +7,8 @@ An example of a small project based on ports/adapters pattern and functional pro
 1. ports/adapters pattern - use of domain/infra folders to see the boundaries
 2. use of Either to handle errors
 3. use of Higer Order Function for logging
-4. implicit implementation for repositories
-5. use of fake implementation for unit testing
-6. use of docker compose and hoverfly for integration testing
+4. use of fake implementation for unit testing
+5. use of docker compose and hoverfly for integration testing
 
 ## Tests
 

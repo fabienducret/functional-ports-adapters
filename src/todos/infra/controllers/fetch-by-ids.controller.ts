@@ -1,15 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Either } from 'purify-ts';
 import type { Error } from '../../domain/models/error.js';
 import type { Todo } from '../../domain/models/todo.js';
+import type { FetchTodosByIds } from '../../domain/ports/primary.js';
 
 type Request = FastifyRequest<{
   Querystring: { ids?: string };
 }>;
-
-interface FetchTodosByIds {
-  (ids: string[]): Promise<Either<Error, Todo[]>>;
-}
 
 const idsFrom = (request: Request): string[] | undefined =>
   request.query.ids?.split(',');

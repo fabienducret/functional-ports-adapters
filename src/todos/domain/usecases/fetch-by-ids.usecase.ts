@@ -1,10 +1,8 @@
 import { Either, Left, Right } from 'purify-ts/Either';
 import type { Error } from '../models/error.js';
 import type { Todo } from '../models/todo.js';
-
-interface TodoRepository {
-  fetchById(id: string): Promise<Either<Error, Todo>>;
-}
+import type { TodoRepository } from '../ports/secondary.js';
+import type { FetchTodosByIds } from '../ports/primary.js';
 
 const hasErrors = (todos: Either<Error, Todo>[]): boolean => {
   return Either.lefts(todos).length > 0;
@@ -18,7 +16,9 @@ const formatErrorMessage = (todos: Either<Error, Todo>[]) => {
   return `Error in fetch-by-id:\n${errors}`;
 };
 
-export const fetchTodosByIdsUseCase = (repo: TodoRepository) => {
+export const fetchTodosByIdsUseCase = (
+  repo: TodoRepository
+): FetchTodosByIds => {
   const fetch = async (ids: string[]) => {
     const requests = ids.map(repo.fetchById);
     return Promise.all(requests);

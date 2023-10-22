@@ -1,6 +1,7 @@
 import { Either } from 'purify-ts';
 import type { Todo } from '../../domain/models/todo.js';
 import type { Error } from '../../domain/models/error.js';
+import type { TodoRepository } from '../../domain/ports/secondary.js';
 
 interface Fetcher {
   <T>(url: string): Promise<Either<string, T>>;
@@ -22,7 +23,10 @@ const parseTodo = (from: RawTodo): Todo => {
   };
 };
 
-export const httpTodoRepository = (fetcher: Fetcher, url?: string) => {
+export const httpTodoRepository = (
+  fetcher: Fetcher,
+  url?: string
+): TodoRepository => {
   return {
     async fetchById(id: string): Promise<Either<Error, Todo>> {
       const rawTodo = await fetcher<RawTodo>(`${url}/todos/${id}`);

@@ -1,6 +1,7 @@
 import { Either, Left, Right } from 'purify-ts';
 import type { Todo } from '../../domain/models/todo.js';
 import type { Error } from '../../domain/models/error.js';
+import type { TodoRepository } from '../../domain/ports/secondary.js';
 
 const todos = [
   {
@@ -13,7 +14,7 @@ const todos = [
   },
 ];
 
-export const inMemoryTodoRepository = {
+export const inMemoryTodoRepository: TodoRepository = {
   async fetchById(id: string): Promise<Either<Error, Todo>> {
     const todo = todos.find((t) => t.id === Number(id));
 
