@@ -1,28 +1,28 @@
+import 'dotenv/config';
+import { Either, Left, Right } from 'purify-ts';
+
 export type Config = {
-  host?: string;
-  port?: number;
+  host: string;
+  port: number;
   todosApiUrl?: string;
 };
 
-const getHost = (): string => {
-  const defaultHost = 'localhost';
-  return process.env.HOST ?? defaultHost;
-};
+export const initConfig = (): Either<Error, Config> => {
+  const host = process.env.SERVER_HOST;
 
-const getPort = (): number => {
-  const defaultPort = 3000;
-  return process.env.PORT ? parseInt(process.env.PORT, 10) : defaultPort;
-};
+  if (!host) {
+    return Left(new Error('missing var SERVER_HOST'));
+  }
 
-const getTodosApiUrl = (): string => {
-  const defaultUrl = 'https://jsonplaceholder.typicode.com';
-  return process.env.TODOS_API_URL ? process.env.TODOS_API_URL : defaultUrl;
-};
+  const port = process.env.SERVER_PORT;
 
-export const initConfig = (): Config => {
-  return {
-    host: getHost(),
-    port: getPort(),
-    todosApiUrl: getTodosApiUrl(),
-  };
+  if (!port) {
+    return Left(new Error('missing var SERVER_PORT'));
+  }
+
+  return Right({
+    host,
+    port: parseInt(port, 10),
+    todosApiUrl: process.env.TODOS_API_URL,
+  });
 };

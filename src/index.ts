@@ -1,9 +1,13 @@
 import { initConfig } from './server/config.js';
-import { startServerWith } from './server/server.js';
+import { startServer } from './server/server.js';
+
+const handleError = (err: Error) => {
+  console.error(err);
+  process.exit(1);
+};
 
 const main = async () => {
-  const config = initConfig();
-  await startServerWith(config);
+  initConfig().ifLeft(handleError).map(startServer);
 };
 
 main();

@@ -2,7 +2,7 @@ import Fastify from 'fastify';
 import { loadGetTodosRoutesFor } from '../todos/infra/routes/get-todos.routes.js';
 import type { Config } from './config.js';
 
-export const startServerWith = async (config: Config) => {
+export const startServer = async (config: Config) => {
   const server = Fastify();
   loadGetTodosRoutesFor(server, config);
 

@@ -7,6 +7,6 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - HOST=0.0.0.0
-      - PORT=3000
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=${SERVER_PORT}
       - TODOS_API_URL=${TODOS_API_URL}
