@@ -4,7 +4,7 @@ import { putSimulation } from '../api-simulation.js';
 import { startDockerComposeWith } from '../docker-compose.js';
 import type { StartedDockerComposeEnvironment } from 'testcontainers';
 
-test('todos - fetch by ids - integration', async (t) => {
+test('todos - fetch by ids - e2e', async (t) => {
   const todosApiUrl = 'http://fake-api:8500';
   const serverUrl = 'http://localhost:3000';
   let environment: StartedDockerComposeEnvironment;
