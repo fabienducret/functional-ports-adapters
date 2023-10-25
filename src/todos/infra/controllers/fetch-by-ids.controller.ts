@@ -6,21 +6,12 @@ type Request = FastifyRequest<{
   Querystring: { ids?: string };
 }>;
 
-type TodoReply = {
-  id: number;
-  title: string;
-};
-
 const idsFrom = (request: Request): string[] | undefined =>
   request.query.ids?.split(',');
 
 const replyWithError = (reply: FastifyReply, e: Error): void => {
   reply.status(500);
   reply.send(e);
-};
-
-const replyWithTodos = (reply: FastifyReply, t: TodoReply[]): void => {
-  reply.send({ todos: t });
 };
 
 export const fetchTodosByIdsController = (fetchTodosByIds: FetchTodosByIds) => {
@@ -31,8 +22,8 @@ export const fetchTodosByIdsController = (fetchTodosByIds: FetchTodosByIds) => {
     errOrTodos
       .ifLeft((e) => replyWithError(reply, e))
       .map((todos) => {
-        const todosReply = todos.map((t) => ({ id: t.id, title: t.title }));
-        return replyWithTodos(reply, todosReply);
+        const toReply = todos.map((t) => ({ id: t.id, title: t.title }));
+        reply.send({ todos: toReply });
       });
   };
 };

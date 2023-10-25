@@ -6,12 +6,12 @@ import { withLogging } from '../../../lib/with-logging.js';
 import type { FastifyInstance } from 'fastify';
 import type { Config } from '../../../server/config.js';
 
-export const loadGetTodosRoutesFor = (
+export const loadFetchTodosByIdsRoute = (
   server: FastifyInstance,
   config: Config
 ) => {
   const todoRepo = httpTodoRepository(fetcher, config.todosApiUrl);
-  const todosByIds = withLogging(fetchTodosByIdsUseCase(todoRepo));
+  const fetchTodosByIds = withLogging(fetchTodosByIdsUseCase(todoRepo));
 
-  server.get('/todos', fetchTodosByIdsController(todosByIds));
+  server.get('/todos', fetchTodosByIdsController(fetchTodosByIds));
 };
