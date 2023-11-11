@@ -15,7 +15,7 @@ export const fetcherInError = async () => {
 };
 
 test('httpTodoRepository', async (t) => {
-  await t.test('should return valid todo', async () => {
+  await t.test('fetch a todo by id', async () => {
     // Arrange
     const repo = httpTodoRepository(fetcherInSuccess, 'https://url.com');
 
@@ -29,7 +29,7 @@ test('httpTodoRepository', async (t) => {
     });
   });
 
-  await t.test('should return error', async () => {
+  await t.test('get an error', async () => {
     // Arrange
     const repo = httpTodoRepository(fetcherInError, 'https://url.com');
 

@@ -6,7 +6,7 @@ import { fetchTodosByIdsUseCase } from './fetch-by-ids.usecase.js';
 test('fetch-by-ids', async (t) => {
   const todosByIds = fetchTodosByIdsUseCase(inMemoryTodoRepository);
 
-  await t.test('should return valid todos', async () => {
+  await t.test('fetch todos by ids', async () => {
     // Act
     const todos = await todosByIds(['1', '2']);
 
@@ -23,7 +23,7 @@ test('fetch-by-ids', async (t) => {
     ]);
   });
 
-  await t.test('should return error message for invalid resource', async () => {
+  await t.test('get an error message for invalid resource', async () => {
     // Act
     const error = await todosByIds(['1', '3', '4']);
 
