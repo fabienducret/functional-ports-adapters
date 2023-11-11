@@ -2,12 +2,12 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import type { Error } from '../../domain/models/error.js';
 import type { FetchTodosByIds } from '../../domain/ports/primary.js';
 
-type Request = FastifyRequest<{
+export type RequestFetchTodosByIds = FastifyRequest<{
   Querystring: { ids?: string };
 }>;
 
-const idsFrom = (request: Request): string[] | undefined =>
-  request.query.ids?.split(',');
+const idsFrom = (req: RequestFetchTodosByIds): string[] | undefined =>
+  req.query.ids?.split(',');
 
 const replyWithError = (reply: FastifyReply, e: Error): void => {
   reply.status(500);
@@ -15,7 +15,7 @@ const replyWithError = (reply: FastifyReply, e: Error): void => {
 };
 
 export const fetchTodosByIdsController = (fetchTodosByIds: FetchTodosByIds) => {
-  return async (req: Request, reply: FastifyReply) => {
+  return async (req: RequestFetchTodosByIds, reply: FastifyReply) => {
     const ids = idsFrom(req) ?? [];
     const errOrTodos = await fetchTodosByIds(ids);
 
