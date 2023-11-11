@@ -18,7 +18,7 @@ test('todos - fetch by ids - e2e', async (t) => {
     environment.down();
   });
 
-  await t.test('should return valid todos', async () => {
+  await t.test('get todos with success', async () => {
     // When
     const response = await fetch(`${serverUrl}/todos?ids=1,2`);
 
@@ -38,7 +38,7 @@ test('todos - fetch by ids - e2e', async (t) => {
     });
   });
 
-  await t.test('should return error for invalid resource', async () => {
+  await t.test('get error for invalid resource', async () => {
     // When
     const response = await fetch(`${serverUrl}/todos?ids=1,2,3`);
 
