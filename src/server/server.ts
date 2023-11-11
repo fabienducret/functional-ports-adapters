@@ -9,7 +9,7 @@ export type Controllers = {
   ) => Promise<void>;
 };
 
-export const initServerWith = (controllers: Controllers) => {
+export const startServerFactory = (controllers: Controllers) => {
   const server = Fastify();
   loadRoutes(server, controllers);
 

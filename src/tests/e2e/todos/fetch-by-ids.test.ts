@@ -15,7 +15,9 @@ test('todos - fetch by ids - e2e', async (t) => {
   });
 
   after(async () => {
-    environment.down();
+    if (environment) {
+      environment.down();
+    }
   });
 
   await t.test('get todos with success', async () => {
