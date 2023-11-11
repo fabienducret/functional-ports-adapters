@@ -7,10 +7,10 @@ test('fetch-by-ids', async (t) => {
   const todosByIds = fetchTodosByIdsUseCase(inMemoryTodoRepository);
 
   await t.test('should return valid todos', async () => {
-    // When
+    // Act
     const todos = await todosByIds(['1', '2']);
 
-    //Then
+    // Assert
     assert.deepEqual(todos.extract(), [
       {
         id: 1,
@@ -24,10 +24,10 @@ test('fetch-by-ids', async (t) => {
   });
 
   await t.test('should return error message for invalid resource', async () => {
-    // When
+    // Act
     const error = await todosByIds(['1', '3', '4']);
 
-    //Then
+    // Assert
     assert.deepEqual(error.extract(), {
       message:
         'Error in fetch-by-id:\nerror in fetching resource 3\nerror in fetching resource 4',

@@ -4,15 +4,15 @@ import { withLogging } from './with-logging.js';
 
 test('logger', (t) => {
   t.test('should log', () => {
-    // Given
+    // Arrange
     const logger = mock.fn();
     const funcToLog = (a: number, b: number): string => `result=${a}:${b}`;
 
-    // When
+    // Act
     const withLogger = withLogging(funcToLog, logger);
     withLogger(22, 9);
 
-    // Then
+    // Assert
     assert.strictEqual(logger.mock.calls.length, 2);
     assert.strictEqual(
       logger.mock.calls[0].arguments[0],

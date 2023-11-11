@@ -16,13 +16,13 @@ export const fetcherInError = async () => {
 
 test('httpTodoRepository', async (t) => {
   await t.test('should return valid todo', async () => {
-    // Given
+    // Arrange
     const repo = httpTodoRepository(fetcherInSuccess, 'https://url.com');
 
-    // When
+    // Act
     const todo = await repo.fetchById('2');
 
-    // Then
+    // Assert
     assert.deepEqual(todo.extract(), {
       id: 2,
       title: 'quis ut nam facilis et officia qui',
@@ -30,13 +30,13 @@ test('httpTodoRepository', async (t) => {
   });
 
   await t.test('should return error', async () => {
-    // Given
+    // Arrange
     const repo = httpTodoRepository(fetcherInError, 'https://url.com');
 
-    // When
+    // Act
     const err = await repo.fetchById('3');
 
-    // Then
+    // Assert
     assert.deepEqual(err.extract(), {
       message: 'error in fetching resource 3',
     });
