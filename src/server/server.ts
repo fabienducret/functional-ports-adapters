@@ -1,5 +1,6 @@
 import Fastify, { FastifyReply } from 'fastify';
-import { RequestFetchTodosByIds } from '../todos/infra/controllers/fetch-by-ids.controller.js';
+import { loadRoutes } from './routes.js';
+import type { RequestFetchTodosByIds } from '../todos/infra/controllers/fetch-by-ids.controller.js';
 
 export type Controllers = {
   fetchTodosByIds: (
@@ -9,11 +10,10 @@ export type Controllers = {
 };
 
 export const initServerWith = (controllers: Controllers) => {
+  const server = Fastify();
+  loadRoutes(server, controllers);
+
   return async (host: string, port: number) => {
-    const server = Fastify();
-
-    server.get('/todos', controllers.fetchTodosByIds);
-
     try {
       console.log(`starting server on ${host}:${port}`);
       await server.listen({ host: host, port: port });

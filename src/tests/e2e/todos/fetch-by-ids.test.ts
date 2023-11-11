@@ -19,10 +19,10 @@ test('todos - fetch by ids - e2e', async (t) => {
   });
 
   await t.test('get todos with success', async () => {
-    // When
+    // Act
     const response = await fetch(`${serverUrl}/todos?ids=1,2`);
 
-    // Then
+    // Assert
     assert.equal(response.status, 200);
     assert.deepEqual(await response.json(), {
       todos: [
@@ -39,10 +39,10 @@ test('todos - fetch by ids - e2e', async (t) => {
   });
 
   await t.test('get error for invalid resource', async () => {
-    // When
+    // Act
     const response = await fetch(`${serverUrl}/todos?ids=1,2,3`);
 
-    // Then
+    // Assert
     assert.equal(response.status, 500);
     assert.deepEqual(await response.json(), {
       message: `Error in fetch-by-id:\nerror in fetching ${todosApiUrl}/todos/3`,
