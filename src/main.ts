@@ -6,11 +6,6 @@ import { fetchTodosByIdsUseCase } from './todos/domain/usecases/fetch-by-ids.use
 import { fetchTodosByIdsController } from './todos/infra/controllers/fetch-by-ids.controller.js';
 import { httpTodoRepository } from './todos/infra/repositories/http.repository.js';
 
-const handleError = (err: Error) => {
-  console.error(err);
-  process.exit(1);
-};
-
 const controllers = (config: Config): Controllers => {
   const todoRepo = httpTodoRepository(fetcher, config.todosApiUrl);
   const fetchTodosByIds = withLogging(fetchTodosByIdsUseCase(todoRepo));
@@ -20,13 +15,18 @@ const controllers = (config: Config): Controllers => {
   };
 };
 
+const handleError = (e: Error) => {
+  console.error(e);
+  process.exit(1);
+};
+
+const startServer = (c: Config) => {
+  const startServer = startServerFactory(controllers(c));
+  startServer(c.host, c.port);
+};
+
 const main = async () => {
-  initConfig()
-    .ifLeft(handleError)
-    .map((c: Config) => {
-      const startServer = startServerFactory(controllers(c));
-      startServer(c.host, c.port);
-    });
+  initConfig().ifLeft(handleError).map(startServer);
 };
 
 main();
