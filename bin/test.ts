@@ -12,6 +12,10 @@ configure({
       name: 'integration',
       files: ['tests/integration/**/*.test.ts'],
     },
+    {
+      name: 'e2e',
+      files: ['tests/e2e/**/*.test.ts'],
+    },
   ],
 
   plugins: [assert()],
