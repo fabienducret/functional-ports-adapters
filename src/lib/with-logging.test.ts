@@ -1,9 +1,9 @@
-import { test, mock } from 'node:test';
-import * as assert from 'node:assert';
+import { test } from '@japa/runner';
+import { mock } from 'node:test';
 import { withLogging } from './with-logging.js';
 
-test('logger', (t) => {
-  t.test('should log', () => {
+test.group('logger', () => {
+  test('should log', ({ assert }) => {
     // Arrange
     const logger = mock.fn();
     const funcToLog = (a: number, b: number): string => `result=${a}:${b}`;

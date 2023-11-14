@@ -1,5 +1,4 @@
-import { test } from 'node:test';
-import * as assert from 'node:assert';
+import { test } from '@japa/runner';
 import { httpTodoRepository } from './http.repository.js';
 import { Left, Right } from 'purify-ts';
 
@@ -14,8 +13,8 @@ export const fetcherInError = async () => {
   return Left('error in fetching resource 3');
 };
 
-test('httpTodoRepository', async (t) => {
-  await t.test('fetch a todo by id', async () => {
+test.group('httpTodoRepository', async () => {
+  test('fetch a todo by id', async ({ assert }) => {
     // Arrange
     const repo = httpTodoRepository(fetcherInSuccess, 'https://url.com');
 
@@ -29,7 +28,7 @@ test('httpTodoRepository', async (t) => {
     });
   });
 
-  await t.test('get an error', async () => {
+  test('get an error', async ({ assert }) => {
     // Arrange
     const repo = httpTodoRepository(fetcherInError, 'https://url.com');
 

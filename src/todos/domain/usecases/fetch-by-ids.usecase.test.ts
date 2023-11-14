@@ -1,12 +1,11 @@
-import { test } from 'node:test';
-import * as assert from 'node:assert';
+import { test } from '@japa/runner';
 import { inMemoryTodoRepository } from '../../infra/repositories/in-memory.repository.js';
 import { fetchTodosByIdsUseCase } from './fetch-by-ids.usecase.js';
 
-test('fetch-by-ids', async (t) => {
+test.group('fetch-by-ids', async () => {
   const todosByIds = fetchTodosByIdsUseCase(inMemoryTodoRepository);
 
-  await t.test('fetch todos by ids', async () => {
+  test('fetch todos by ids', async ({ assert }) => {
     // Act
     const todos = await todosByIds(['1', '2']);
 
@@ -23,7 +22,7 @@ test('fetch-by-ids', async (t) => {
     ]);
   });
 
-  await t.test('get an error message for invalid resource', async () => {
+  test('get an error message for invalid resource', async ({ assert }) => {
     // Act
     const error = await todosByIds(['1', '3', '4']);
 

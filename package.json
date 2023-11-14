@@ -6,14 +6,17 @@
   "type": "module",
   "scripts": {
     "start": "node dist/main.js",
-    "build": "tsc",
+    "build": "tsc -p tsconfig-build.json",
     "watch": "tsc -w",
     "lint": "eslint . --fix",
-    "test": "npm run build && node --test"
+    "test:unit": "node --loader ts-node/esm --enable-source-maps bin/test.ts unit",
+    "test:e2e": "node --loader ts-node/esm --enable-source-maps bin/test.ts e2e"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@japa/assert": "^2.0.0-2",
+    "@japa/runner": "^3.0.0-9",
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.8.5",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
@@ -21,8 +24,10 @@
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "japa": "^4.0.0",
     "prettier": "^3.0.3",
     "testcontainers": "^10.2.1",
+    "ts-node": "^10.9.1",
     "tsx": "^3.13.0",
     "typescript": "^5.2.2"
   },

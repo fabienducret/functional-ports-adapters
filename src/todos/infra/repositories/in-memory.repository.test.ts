@@ -1,9 +1,8 @@
-import { test } from 'node:test';
-import * as assert from 'node:assert';
+import { test } from '@japa/runner';
 import { inMemoryTodoRepository } from './in-memory.repository.js';
 
-test('inMemoryTodoRepository', async (t) => {
-  await t.test('fetch a todo by id', async () => {
+test.group('inMemoryTodoRepository', async () => {
+  test('fetch a todo by id', async ({ assert }) => {
     // Act
     const todo = await inMemoryTodoRepository.fetchById('2');
 
@@ -14,7 +13,7 @@ test('inMemoryTodoRepository', async (t) => {
     });
   });
 
-  await t.test('get an error', async () => {
+  test('get an error', async ({ assert }) => {
     // Act
     const err = await inMemoryTodoRepository.fetchById('3');
 
