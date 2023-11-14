@@ -14,9 +14,11 @@ export const fetcherInError = async () => {
 };
 
 test.group('httpTodoRepository', async () => {
+  const apiUrl = 'https://url.com';
+
   test('fetch a todo by id', async ({ assert }) => {
     // Arrange
-    const repo = httpTodoRepository(fetcherInSuccess, 'https://url.com');
+    const repo = httpTodoRepository(fetcherInSuccess, apiUrl);
 
     // Act
     const todo = await repo.fetchById('2');
@@ -30,7 +32,7 @@ test.group('httpTodoRepository', async () => {
 
   test('get an error', async ({ assert }) => {
     // Arrange
-    const repo = httpTodoRepository(fetcherInError, 'https://url.com');
+    const repo = httpTodoRepository(fetcherInError, apiUrl);
 
     // Act
     const err = await repo.fetchById('3');
