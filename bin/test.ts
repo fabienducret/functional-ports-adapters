@@ -9,8 +9,8 @@ configure({
       files: ['src/**/*.test.ts'],
     },
     {
-      name: 'e2e',
-      files: ['tests/**/*.test.ts'],
+      name: 'integration',
+      files: ['tests/integration/**/*.test.ts'],
     },
   ],
 
