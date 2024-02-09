@@ -10,25 +10,20 @@ export type Controllers = {
 };
 
 interface Server {
-  start: (host: string, port: number) => Promise<void>;
+  run: (host: string, port: number) => Promise<string>;
   close: () => Promise<void>;
 }
 
-export const serverFactory = (controllers: Controllers): Server => {
+export const createServerWith = (controllers: Controllers): Server => {
   const server = Fastify();
   loadRoutes(server, controllers);
 
   return {
-    start: async (host: string, port: number) => {
-      try {
-        console.log(`starting server on ${host}:${port}`);
-        await server.listen({ host: host, port: port });
-      } catch (err) {
-        server.log.error(err);
-        process.exit(1);
-      }
+    run: async (host: string, port: number): Promise<string> => {
+      console.log(`starting server on ${host}:${port}`);
+      return server.listen({ host: host, port: port });
     },
-    close: async () => {
+    close: async (): Promise<void> => {
       await server.close();
     },
   };

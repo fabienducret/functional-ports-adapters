@@ -28,7 +28,7 @@ export const httpTodoRepository = (
   apiUrl?: string
 ): TodoRepository => {
   return {
-    async fetchById(id: string): Promise<Either<Error, Todo>> {
+    fetchById: async (id: string): Promise<Either<Error, Todo>> => {
       const rawTodo = await fetcher<RawTodo>(`${apiUrl}/todos/${id}`);
 
       return rawTodo.mapLeft(parseError).map(parseTodo);

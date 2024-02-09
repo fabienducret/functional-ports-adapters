@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { serverFactory } from '../../../src/server/server.js';
+import { createServerWith } from '../../../src/server/server.js';
 import { fetchTodosByIdsController } from '../../../src/todos/infra/controllers/fetch-by-ids.controller.js';
 import { fetchTodosByIdsUseCase } from '../../../src/todos/domain/usecases/fetch-by-ids.usecase.js';
 import { inMemoryTodoRepository } from '../../../src/todos/infra/repositories/in-memory.repository.js';
@@ -7,7 +7,7 @@ import { inMemoryTodoRepository } from '../../../src/todos/infra/repositories/in
 const initServer = () => {
   const fetchTodosByIds = fetchTodosByIdsUseCase(inMemoryTodoRepository);
 
-  return serverFactory({
+  return createServerWith({
     fetchTodosByIds: fetchTodosByIdsController(fetchTodosByIds),
   });
 };
@@ -18,7 +18,7 @@ test.group('todos - fetch by ids - integration', async (group) => {
   const server = initServer();
 
   group.setup(async () => {
-    await server.start(host, port);
+    await server.run(host, port);
   });
 
   group.teardown(async () => {

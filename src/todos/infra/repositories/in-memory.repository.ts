@@ -15,7 +15,7 @@ const todos = [
 ];
 
 export const inMemoryTodoRepository: TodoRepository = {
-  async fetchById(id: string): Promise<Either<Error, Todo>> {
+  fetchById: async (id: string): Promise<Either<Error, Todo>> => {
     const todo = todos.find((t) => t.id === Number(id));
 
     if (!todo) {
